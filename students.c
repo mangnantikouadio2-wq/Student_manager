@@ -1,14 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-
-extern int student_count;
-
-typedef struct {
-    char name[50];
-    float marks[5];
-    int ratings_number;
-    float average;
-} student;
+#include "student.h"
 
 student *add_student(student *array, char *new_name) {
     student new_student;
