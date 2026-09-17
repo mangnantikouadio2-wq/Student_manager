@@ -22,19 +22,27 @@ student *add_student(student *array, char *new_name) {
 
 int find_student_index(student *array, char *student_name) {
     int i = 0;
-    while(strcmp(student_name, array[i].name) != 0 && i < student_count) {
+    while(i < student_count && strcmp(student_name, array[i].name) != 0) {
         i++;
     }
-    return i;
+    if (i == student_count) {
+        return -1;
+    }
+    else {
+        return i;
+    }
 }
 
-student *remove_student(student *array, char *name_to_remove) {
+int remove_student(student *array, char *name_to_remove) {
     int i = find_student_index(array, name_to_remove);
-    for (int j=i; j < student_count; j++) {
+    if (i == -1) {
+        return 0;
+    }
+    for (int j=i; j < student_count - 1; j++) {
         array[j] = array[j+1];
     }
-    student_count --;
-    return array;
+    student_count--;
+    return 1;
 }
 
 void update_student_name(student *s, char *new_name) {
