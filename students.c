@@ -10,10 +10,10 @@ typedef struct {
     float average;
 } student;
 
-student *add_student(student *array, char *new_name, int ratings_number) {
+student *add_student(student *array, char *new_name) {
     student new_student;
     strcpy(new_student.name, new_name);
-    new_student.ratings_number = ratings_number;
+    new_student.ratings_number = 0;
     new_student.average = 0;
     array[student_count] = new_student;
     student_count++;
@@ -47,6 +47,7 @@ int add_mark_to_student(student *s, float new_mark) {
     }
     s->marks[s->ratings_number] = new_mark;
     s->ratings_number++;
+    update_average(s);
     return 1;
 }
 
@@ -55,5 +56,18 @@ int update_single_mark(student *s, int mark_index, float new_mark) {
         return 0;
     }
     s->marks[mark_index] = new_mark;
+    update_average(s);
     return 1;
+}
+
+void update_average(student *s) {
+    if (s->ratings_number == 0) {
+        s->average = 0;
+        return;
+    }
+    float sum = 0;
+    for (int i = 0; i <= s->ratings_number; i++) {
+        sum+= s->marks[i];
+    }
+    s->average = sum / s->ratings_number;
 }
