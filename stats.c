@@ -80,8 +80,8 @@ void merge_sort(student *array, int begin, int end, int sort_option) {
     if (begin < end) {
         int medium = begin + (end - begin) / 2;
     
-    merge_sort(array, begin, medium, end);
-    merge_sort(array, begin, medium + 1, end);
+    merge_sort(array, begin, medium, sort_option);
+    merge_sort(array, medium + 1, end, sort_option);
 
     switch (sort_option) {
     case BY_NAME:

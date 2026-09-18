@@ -3,8 +3,12 @@
 #include "student.h"
 
 student *add_student(student *array, char *new_name) {
+    if (student_count >= MAX_STUDENTS) {
+        return NULL;
+    }
     student new_student;
-    strcpy(new_student.name, new_name);
+    strncpy(new_student.name, new_name, sizeof(new_student.name) - 1);
+    new_student.name[sizeof(new_student.name) - 1] = '\0';
     new_student.ratings_number = 0;
     new_student.average = 0;
     array[student_count] = new_student;
@@ -52,7 +56,7 @@ int add_mark_to_student(student *s, float new_mark) {
 }
 
 int update_single_mark(student *s, int mark_index, float new_mark) {
-    if (mark_index < 0 || mark_index > s->ratings_number) {
+    if (mark_index < 0 || mark_index >= s->ratings_number) {
         return 0;
     }
     s->marks[mark_index] = new_mark;
@@ -66,7 +70,7 @@ void update_average(student *s) {
         return;
     }
     float sum = 0;
-    for (int i = 0; i <= s->ratings_number; i++) {
+    for (int i = 0; i < s->ratings_number; i++) {
         sum+= s->marks[i];
     }
     s->average = sum / s->ratings_number;
