@@ -2,6 +2,8 @@
 #define STUDENT_H
 
 #define MAX_STUDENTS 50
+#define BY_NAME 0
+#define BY_AVERAGE 1
 
 typedef struct {
     char name[50];
