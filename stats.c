@@ -94,3 +94,14 @@ void merge_sort(student *array, int begin, int end, int sort_option) {
     }
     }
 }
+
+float total_average(student *array) {
+    if (array == NULL || student_count <=0) {
+        return 0.0f;
+    }
+    float sum = 0.0f;
+    for (int i=0; i < student_count; i++) {
+        sum += array[i].average;
+    }
+    return sum / student_count;
+}
