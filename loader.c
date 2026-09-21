@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <student.h>
+#include "student.h"
 
 
 int save_to_csv(const char *file_name, student *array, int count) {
