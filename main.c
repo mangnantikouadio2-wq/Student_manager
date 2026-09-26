@@ -29,11 +29,12 @@ int main(void) {
                 continue;
             }
         }
+        while (getchar() != '\n');
         switch (choice) {
             case 1:
                 char brand_new_name[50];
                 printf("Enter the student's name: ");
-                scanf("%49[^\n]", brand_new_name);
+                scanf(" %49[^\n]", brand_new_name);
                 if (add_student(student_array, brand_new_name)) {
                     break;
                 } else {
@@ -44,7 +45,7 @@ int main(void) {
                 char target_name[50];
                 char new_name[50];
                 printf("What student's name do you want to modifie?\n");
-                scanf("%49[^\n]", target_name);
+                scanf(" %49[^\n]", target_name);
                 int index = find_student_index(student_array, target_name);
                 if (index == -1) {
                     printf("Student not found!\n");
@@ -59,7 +60,7 @@ int main(void) {
                 char mark_targer_name[50];
                 float new_mark;
                 printf("What student do you want to add a mark to?\n");
-                scanf("%49[^\n]", mark_targer_name);
+                scanf(" %49[^\n]", mark_targer_name);
                 int mark_index =find_student_index(student_array, mark_targer_name);
                 if(mark_index == -1) {
                     printf("Student not found\n");
@@ -80,7 +81,7 @@ int main(void) {
             case 4:
                 char name_to_remove[50];
                 printf("What student do you want to remove?\n");
-                scanf("%49[^\n]", name_to_remove);
+                scanf(" %49[^\n]", name_to_remove);
                 if (remove_student(student_array, name_to_remove)) {
                     break;
                 } else {
@@ -101,6 +102,7 @@ int main(void) {
                         continue;
                     }
                 }
+                while(getchar() != '\n');
                 switch (sort_option) {
                     case 1:
                         merge_sort(student_array, 0, student_count-1, BY_NAME);
@@ -140,6 +142,7 @@ int main(void) {
                             while (getchar() != '\n');
                             continue;
                         }
+                        while(getchar() != '\n');
                         if (fall_choice == 1) {
                             if (save_to_csv("student.csv", student_array, student_count)) {
                                 printf("---- Saved successfully as student.csv ---\n");
