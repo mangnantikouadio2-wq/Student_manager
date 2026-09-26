@@ -14,7 +14,7 @@ typedef struct {
 
 extern int student_count;
 
-student *add_student(student *array, char *new_name);
+int add_student(student *array, char *new_name);
 int find_student_index(student *array, char *student_name);
 int remove_student(student *array, char *name_to_remove);
 void update_student_name(student *s, char *new_name);
