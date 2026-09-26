@@ -75,7 +75,6 @@ int main(void) {
                         printf("The maximum ratings number supported is reached\n");
                         break;
                     }
-                    
                 }
             case 4:
                 char name_to_remove[50];
@@ -122,7 +121,49 @@ int main(void) {
                     break;
                 }
             case 7: //my nightmare 
+                int save_status = save_to_csv("student.csv", strudent_array, student_count);
+                if (save_status == 1) {
+                    printf("---- Saved successfully as student.csv ----\n");
+                    runnig = false;
+                } else {
+                    bool exit_resolved = false;
+                    
+                    while (!exit_resolved) {
+                        printf("\n/!\\Something went wrong while saving!\n");
+                        printf("1 - Try to save again\n");
+                        printf("2 - Exit whithout saving\n");
+                        printf("3 - Cancel and return to the main menu\n");
+                        printf("Your choice: ");
+                        int fall_choice;
+                        if (scanf("%d", &fall_choice) != 1) {
+                            while (getchar() != '\n');
+                            continue;
+                        }
+                        if (fall_choice == 1) {
+                            if (save_to_csv("student.csv", strudent_array, student_count)) {
+                                printf("---- Saved successfully as student.csv ---\n");
+                                runnig = false;
+                                exit_resolved = true;
+                            }
+                        } else if (fall_choice == 2) {
+                            printf("Closing withtout saving...\n");
+                            runnig = false;
+                            exit_resolved = true;
+                        } else if (fall_choice == 3) {
+                            printf("Return to the main menu\n");
+                            exit_resolved = true;
+                        } else {
+                            printf("Invalide choice.\n");
+                        }
+                    }
+                }
+                break;
+            default:
+                printf("Invalide choice\n");
+                break;
         }
     }
+    printf("See you soon\n");
+    return 0;
     
 }
