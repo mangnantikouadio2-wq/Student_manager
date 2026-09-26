@@ -4,6 +4,7 @@
 #include <string.h>
 #include "student.h"
 
+int student_count = 0;
 
 int main(void) {
     student student_array[MAX_STUDENTS];
