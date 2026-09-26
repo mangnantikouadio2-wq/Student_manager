@@ -2,9 +2,9 @@
 #include <string.h>
 #include "student.h"
 
-student *add_student(student *array, char *new_name) {
+int add_student(student *array, char *new_name) {
     if (student_count >= MAX_STUDENTS) {
-        return NULL;
+        return 0;
     }
     student new_student;
     strncpy(new_student.name, new_name, sizeof(new_student.name) - 1);
@@ -13,7 +13,7 @@ student *add_student(student *array, char *new_name) {
     new_student.average = 0;
     array[student_count] = new_student;
     student_count++;
-    return array;
+    return 1;
 }
 
 int find_student_index(student *array, char *student_name) {
