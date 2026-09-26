@@ -6,8 +6,8 @@
 
 
 int main(void) {
-    student strudent_array[MAX_STUDENTS];
-    student_count = load_from_csv("student.csv", strudent_array);
+    student student_array[MAX_STUDENTS];
+    student_count = load_from_csv("student.csv", student_array);
     
     bool runnig = true;
     int choice = 0;
@@ -33,7 +33,7 @@ int main(void) {
                 char brand_new_name[50];
                 printf("Enter the student's name: ");
                 scanf("%49[^\n]", brand_new_name);
-                if (add_student(strudent_array, brand_new_name)) {
+                if (add_student(student_array, brand_new_name)) {
                     break;
                 } else {
                     printf("The maximum number of student is reached!\n");
@@ -44,14 +44,14 @@ int main(void) {
                 char new_name[50];
                 printf("What student's name do you want to modifie?\n");
                 scanf("%49[^\n]", target_name);
-                int index = find_student_index(strudent_array, target_name);
+                int index = find_student_index(student_array, target_name);
                 if (index == -1) {
                     printf("Student not found!\n");
                     break;
                 } else {
                     printf("Enter the new student's name\n");
                     scanf("%49[^\n]", new_name);
-                    update_student_name(strudent_array[index].name, new_name);
+                    update_student_name(&student_array[index], new_name);
                     break;
                 }
             case 3:
@@ -59,7 +59,7 @@ int main(void) {
                 float new_mark;
                 printf("What student do you want to add a mark to?\n");
                 scanf("%49[^\n]", mark_targer_name);
-                int mark_index =find_student_index(strudent_array, mark_targer_name);
+                int mark_index =find_student_index(student_array, mark_targer_name);
                 if(mark_index == -1) {
                     printf("Student not found\n");
                     break;
@@ -69,7 +69,7 @@ int main(void) {
                     if (new_mark < 0.0f || new_mark > 20.0f) {
                         printf("The mark must be out of 20!\n");
                         break;
-                    } else if (add_mark_to_student(&strudent_array[mark_index], new_mark)) {
+                    } else if (add_mark_to_student(&student_array[mark_index], new_mark)) {
                         break;
                     } else {
                         printf("The maximum ratings number supported is reached\n");
@@ -80,7 +80,7 @@ int main(void) {
                 char name_to_remove[50];
                 printf("What student do you want to remove?\n");
                 scanf("%49[^\n]", name_to_remove);
-                if (remove_student(strudent_array, name_to_remove)) {
+                if (remove_student(student_array, name_to_remove)) {
                     break;
                 } else {
                     printf("Student not found\n");
@@ -88,7 +88,7 @@ int main(void) {
                 }
             case 5:
                 if (student_count == 0) {
-                    print("There is no student yet, you can't sort sort nothing!\n");
+                    printf("There is no student yet, you can't sort sort nothing!\n");
                     break;
                 }
                 int sort_option = 0;
@@ -96,16 +96,16 @@ int main(void) {
                 printf("1 - By name?\n");
                 printf("2 - By average?\n");
                 if (scanf("%d", &sort_option) != 1) {
-                    while (getchar() != "\n") {
+                    while (getchar() != '\n') {
                         continue;
                     }
                 }
                 switch (sort_option) {
                     case 1:
-                        merge_sort(strudent_array, 0, student_count-1, BY_NAME);
+                        merge_sort(student_array, 0, student_count-1, BY_NAME);
                         break;
                     case 2:
-                        merge_sort(strudent_array, 0, student_count-1, BY_AVERAGE);
+                        merge_sort(student_array, 0, student_count-1, BY_AVERAGE);
                         break;
                     default:
                         printf("Invalide choice\n");
@@ -114,14 +114,14 @@ int main(void) {
                 break;
             case 6:
                 if(student_count == 0) {
-                    printf("%f... No student found btw\n", total_average(strudent_array));
+                    printf("%f... No student found btw\n", total_average(student_array));
                     break;
                 } else {
-                    printf("The average of the class is: %f\n", total_average(strudent_array));
+                    printf("The average of the class is: %f\n", total_average(student_array));
                     break;
                 }
             case 7: //my nightmare 
-                int save_status = save_to_csv("student.csv", strudent_array, student_count);
+                int save_status = save_to_csv("student.csv", student_array, student_count);
                 if (save_status == 1) {
                     printf("---- Saved successfully as student.csv ----\n");
                     runnig = false;
@@ -140,14 +140,14 @@ int main(void) {
                             continue;
                         }
                         if (fall_choice == 1) {
-                            if (save_to_csv("student.csv", strudent_array, student_count)) {
+                            if (save_to_csv("student.csv", student_array, student_count)) {
                                 printf("---- Saved successfully as student.csv ---\n");
                                 runnig = false;
                                 exit_resolved = true;
                             }
                         } else if (fall_choice == 2) {
                             printf("Closing withtout saving...\n");
-                            runnig = false;
+                            runnig= false;
                             exit_resolved = true;
                         } else if (fall_choice == 3) {
                             printf("Return to the main menu\n");
