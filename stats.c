@@ -3,7 +3,7 @@
 #include <string.h>
 #include "student.h"
 
-static merge_by_name(student *array, int begin, int medium, int end) {
+static void merge_by_name(student *array, int begin, int medium, int end) {
     int left_size = medium - begin + 1;
     int right_size = end - medium;
     student *left = malloc(left_size * sizeof(student));
@@ -39,7 +39,7 @@ static merge_by_name(student *array, int begin, int medium, int end) {
     free (right);
 }
 
-static merge_by_average(student *array, int begin, int medium, int end) {
+static void merge_by_average(student *array, int begin, int medium, int end) {
     int left_size = medium - begin + 1;
     int right_size = end - medium;
     student *left = malloc(left_size * sizeof(student));
