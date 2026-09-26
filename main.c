@@ -73,9 +73,55 @@ int main(void) {
                         break;
                     } else {
                         printf("The maximum ratings number supported is reached\n");
+                        break;
                     }
                     
                 }
+            case 4:
+                char name_to_remove[50];
+                printf("What student do you want to remove?\n");
+                scanf("%49[^\n]", name_to_remove);
+                if (remove_student(strudent_array, name_to_remove)) {
+                    break;
+                } else {
+                    printf("Student not found\n");
+                    break;
+                }
+            case 5:
+                if (student_count == 0) {
+                    print("There is no student yet, you can't sort sort nothing!\n");
+                    break;
+                }
+                int sort_option = 0;
+                printf("Do you want to sort the list:\n");
+                printf("1 - By name?\n");
+                printf("2 - By average?\n");
+                if (scanf("%d", &sort_option) != 1) {
+                    while (getchar() != "\n") {
+                        continue;
+                    }
+                }
+                switch (sort_option) {
+                    case 1:
+                        merge_sort(strudent_array, 0, student_count-1, BY_NAME);
+                        break;
+                    case 2:
+                        merge_sort(strudent_array, 0, student_count-1, BY_AVERAGE);
+                        break;
+                    default:
+                        printf("Invalide choice\n");
+                        break;
+                }
+                break;
+            case 6:
+                if(student_count == 0) {
+                    printf("%f... No student found btw\n", total_average(strudent_array));
+                    break;
+                } else {
+                    printf("The average of the class is: %f\n", total_average(strudent_array));
+                    break;
+                }
+            case 7: //my nightmare 
         }
     }
     
