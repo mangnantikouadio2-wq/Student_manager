@@ -2,13 +2,17 @@
 #include <string.h>
 #include "student.h"
 
+static void copy_name(char destination[], const char source[]) {
+    strncpy(destination, source, 49);
+    destination[49] = '\0';
+}
+
 int add_student(student *array, char *new_name) {
     if (student_count >= MAX_STUDENTS) {
         return 0;
     }
     student new_student;
-    strncpy(new_student.name, new_name, sizeof(new_student.name) - 1);
-    new_student.name[sizeof(new_student.name) - 1] = '\0';
+    copy_name(new_student.name, new_name);
     new_student.ratings_number = 0;
     new_student.average = 0;
     array[student_count] = new_student;
@@ -42,7 +46,7 @@ int remove_student(student *array, char *name_to_remove) {
 }
 
 void update_student_name(student *s, char *new_name) {
-    strcpy(s->name, new_name);
+    copy_name(s->name, new_name);
 }
 
 int add_mark_to_student(student *s, float new_mark) {
