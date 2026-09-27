@@ -2,12 +2,14 @@
 #define STUDENT_H
 
 #define MAX_STUDENTS 50
+#define MAX_NAME_LENGTH 50
+#define MAX_MARKS 5
 #define BY_NAME 0
 #define BY_AVERAGE 1
 
 typedef struct {
-    char name[50];
-    float marks[5];
+    char name[MAX_NAME_LENGTH];
+    float marks[MAX_MARKS];
     int ratings_number;
     float average;
 } student;

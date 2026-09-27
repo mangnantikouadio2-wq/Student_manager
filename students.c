@@ -50,7 +50,7 @@ void update_student_name(student *s, char *new_name) {
 }
 
 int add_mark_to_student(student *s, float new_mark) {
-    if (s->ratings_number >=5) {
+    if (s->ratings_number >=MAX_MARKS) {
         return 0;
     }
     s->marks[s->ratings_number] = new_mark;
