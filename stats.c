@@ -19,59 +19,45 @@ static int compare_by_average(student a, student b) {
     }
 }
 
-static void merge(student *array, int begin, int medium, int end, int (*compare)(student, student)) {
-    int left_size = medium - begin + 1;
-    int right_size = end - medium;
-    student *left = malloc(left_size * sizeof(student));
-    student *right = malloc(right_size * sizeof(student));
-    for (int i=0; i<left_size; i++) {
-        left[i] = array[begin + i];
+static void merge(student *array,student *buffer, int begin, int medium, int end, int (*compare)(student, student)) {
+    for (int i = begin; i<= end; i++) {
+        buffer[i] = array[i];
     }
-    for (int j=0; j<right_size; j++) {
-        right[j] = array[medium + 1 + j];
-    }
-    int i = 0, j = 0, k = begin;
-    while(i<left_size && j<right_size) {
-        if (compare(left[i], right[j]) == 0) {
-            array[k] = left[i];
-            i++;
+    int i = begin;
+    int j = medium + 1;
+    int k = begin;
+    while(i <= medium && j <= end ) {
+        if (compare(buffer[i], buffer[j]) == 0) {
+            array[k++] = buffer[i++];
         } else {
-            array[k] = right[j];
-            j++;
+            array[k++] = buffer[j++];
         }
-        k++;
     }
-    while(i < left_size) {
-        array[k] = left[i];
-        i++;
-        k++;
+    while(i <= medium) {
+        array[k++] = buffer[i++];
     }
-    while(j < right_size) {
-        array[k] = right[j];
-        j++;
-        k++;
-    }
-    free(left);
-    free(right);
 }
 
-void merge_sort(student *array, int begin, int end, int sort_option) {
+static void rec_merge_sort(student *array, student *buffer, int begin, int end, int sort_option) {
     if (begin < end) {
         int medium = begin + (end - begin) / 2;
-    
-    merge_sort(array, begin, medium, sort_option);
-    merge_sort(array, medium + 1, end, sort_option);
+        rec_merge_sort(array, buffer, begin, medium, sort_option);
+        rec_merge_sort(array, buffer, medium + 1, end, sort_option);
+        switch (sort_option) {
+        case BY_NAME:
+            merge(array, buffer, begin, medium, end, compare_by_name);
+            break;
+        case BY_AVERAGE:
+            merge(array, buffer, begin, medium, end, compare_by_average);
+            break;
+        }
+    }
+}
 
-    switch (sort_option) {
-    case BY_NAME:
-        merge(array, begin, medium, end, compare_by_name);
-        break;
-    
-    case BY_AVERAGE:
-        merge(array, begin, medium, end, compare_by_average);
-        break;
-    }
-    }
+void merge_sort(student *array, int n, int sort_option) {
+    student *buffer = malloc(n * sizeof(student));
+    rec_merge_sort(array, buffer, 0, n - 1, sort_option);
+    free(buffer);
 }
 
 float total_average(student *array) {
