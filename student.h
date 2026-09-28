@@ -24,7 +24,7 @@ int add_mark_to_student(student *s, float new_mark);
 int update_single_mark(student *s, int mark_index, float new_mark);
 void update_average(student *s);
 
-void merge_sort(student *array, int begin, int end, int sort_option);
+void merge_sort(student *array, int n, int sort_option);
 float total_average(student *array);
 
 int save_to_csv(const char *file_name, student *array, int count);

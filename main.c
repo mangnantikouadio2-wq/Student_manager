@@ -105,10 +105,10 @@ int main(void) {
                 while(getchar() != '\n');
                 switch (sort_option) {
                     case 1:
-                        merge_sort(student_array, 0, student_count-1, BY_NAME);
+                        merge_sort(student_array, student_count, BY_NAME);
                         break;
                     case 2:
-                        merge_sort(student_array, 0, student_count-1, BY_AVERAGE);
+                        merge_sort(student_array, student_count, BY_AVERAGE);
                         break;
                     default:
                         printf("Invalide choice\n");
